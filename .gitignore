@@ -1,0 +1,7 @@
+# ---------------- #
+# Project-specific #
+# ---------------- #
+__pycache__
+.idea
+.venv
+Exercicio
