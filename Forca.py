@@ -1,9 +1,21 @@
-# print('*** Bem vindo ao jogo da letra ***')
+import random
 
 def jogar():
     print('*** Bem vindo ao jogo da letra ***')
+
+    # Leitura de arquivo
+    arquivo = open("palavras.txt", "r")
+    palavras = []
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+    arquivo.close()
+
     # Constantes/Variáveis
-    palavra_secreta = "python".upper()
+    numero = random.randrange(0,len(palavras))
+    print(numero)
+    palavra_secreta = palavras[numero].upper()
+    #palavra_secreta = "python".upper()
     #letras_acertadas = ["_","_","_","_","_","_"]
     letras_acertadas = ["_" for letra in palavra_secreta]
     enforcado = False
@@ -38,7 +50,7 @@ def jogar():
 
         #Mensagens de jogo encerrado
         if(enforcado):
-            print('Você perdeu!')
+            print('Você perdeu! A palavra era {}.'.format(palavra_secreta))
         if(acerto):
             print('Você ganhou!')
 
