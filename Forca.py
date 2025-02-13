@@ -1,23 +1,11 @@
 import random
 
 def jogar():
-    print('*** Bem vindo ao jogo da letra ***')
-
-    # Leitura de arquivo
-    arquivo = open("palavras.txt", "r")
-    palavras = []
-    for linha in arquivo:
-        linha = linha.strip()
-        palavras.append(linha)
-    arquivo.close()
+    apresentar_abertura()
+    palavra_secreta = ler_palavra_secreta()
+    letras_acertadas = iniciar_palavra_secreta(palavra_secreta)
 
     # Constantes/Variáveis
-    numero = random.randrange(0,len(palavras))
-    print(numero)
-    palavra_secreta = palavras[numero].upper()
-    #palavra_secreta = "python".upper()
-    #letras_acertadas = ["_","_","_","_","_","_"]
-    letras_acertadas = ["_" for letra in palavra_secreta]
     enforcado = False
     acerto = False
     erro = 0
@@ -25,36 +13,60 @@ def jogar():
 
     # Loop
     while(not enforcado and not acerto):
-        print(letras_acertadas)
-        if tentativa - erro == 1:
-            print('Você só tem mais {} tentativa.'.format(tentativa - erro))
-        else:
-            print('Você tem {} tentativas.'.format(tentativa - erro))
-        #print('Número de tentativa(s): {}'.format(tentativa - erro))
-        palpite = input('Escolha uma letra: ').upper().strip()
+        palpite = apresentar_forca(letras_acertadas, tentativa, erro)
 
-        if(palpite in palavra_secreta):
-            index = 0
-            for letra in palavra_secreta:
-                if(palpite == letra):
-                    letras_acertadas[index] = letra
-                index += 1
+        if palpite in palavra_secreta:
+            preencher_letra(palpite, palavra_secreta, letras_acertadas)
         else:
             erro += 1
 
-        #Condição para o enforcado = True
         enforcado = erro == tentativa
-
-        #Condição para o acerto = True
         acerto = "_" not in letras_acertadas
 
-        #Mensagens de jogo encerrado
-        if(enforcado):
-            print('Você perdeu! A palavra era {}.'.format(palavra_secreta))
-        if(acerto):
-            print('Você ganhou!')
+        apresentar_resultado(palavra_secreta, enforcado, acerto)
 
     print('Fim do jogo!')
+
+# Funções
+def apresentar_abertura():
+    print('*** Bem vindo ao jogo da forca ***')
+
+def ler_palavra_secreta():
+    arquivo = open("palavras.txt", "r")
+    palavras = []
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+    arquivo.close()
+    numero = random.randrange(0, len(palavras))
+    palavra_secreta = palavras[numero].upper()
+    return palavra_secreta
+
+def iniciar_palavra_secreta(palavra):
+    return ["_" for letra in palavra]
+
+def apresentar_forca(letras, tentativa, erro):
+    print(letras)
+    if tentativa - erro == 1:
+        print('Você só tem mais {} tentativa.'.format(tentativa - erro))
+    else:
+        print('Você tem {} tentativas.'.format(tentativa - erro))
+    # print('Número de tentativa(s): {}'.format(tentativa - erro))
+    palpite = input('Escolha uma letra: ').upper().strip()
+    return palpite
+
+def preencher_letra(palpite, palavra_secreta, letras_acertadas):
+    index = 0
+    for letra in palavra_secreta:
+        if palpite == letra:
+            letras_acertadas[index] = letra
+        index += 1
+
+def apresentar_resultado(palavra_secreta, enforcado, acerto):
+    if enforcado:
+        print('Você perdeu! A palavra era {}.'.format(palavra_secreta))
+    if acerto:
+        print('Você ganhou!')
 
 if __name__ == '__main__':
     jogar()
