@@ -26,11 +26,13 @@ def jogar():
 
         apresentar_resultado(palavra_secreta, enforcado, acerto)
 
-    print('\nFim do jogo!')
+    print('\n      Fim do jogo!     ')
 
 # Funções
 def apresentar_abertura():
-    print('*** Bem vindo ao jogo da forca ***')
+    print('**********************************')
+    print('*** Bem-vindo ao jogo da forca ***')
+    print('**********************************')
 
 def ler_palavra_secreta():
     arquivo = open("palavras.txt", "r")
@@ -47,6 +49,7 @@ def iniciar_palavra_secreta(palavra):
     return ["_" for letra in palavra]
 
 def apresentar_forca(letras, tentativa, erro):
+    letras = str(letras).strip('[]').replace(',','').replace("'","")
     print(letras)
     if tentativa - erro == 1:
         print('Você só tem mais {} tentativa.'.format(tentativa - erro))
@@ -72,7 +75,7 @@ def apresentar_resultado(palavra_secreta, enforcado, acerto):
         #print('Você ganhou!')
 
 def imprimir_perdedor(palavra_secreta):
-    print("O jogador foi enforcado!")
+    print("\nO jogador foi enforcado!")
     print("A palavra era {}.".format(palavra_secreta))
     print("    _______________         ")
     print("   /               \\       ")
@@ -92,7 +95,7 @@ def imprimir_perdedor(palavra_secreta):
     print("       \\_______/           ")
 
 def imprimir_vencedor():
-    print("Parabéns, você ganhou!")
+    print("\n   Parabéns, você ganhou!  ")
     print("       ___________      ")
     print("      '._==_==_=_.'     ")
     print("      .-\\:      /-.    ")
