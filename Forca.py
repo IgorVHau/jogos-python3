@@ -9,7 +9,7 @@ def jogar():
     enforcado = False
     acerto = False
     erro = 0
-    tentativa = 6
+    tentativa = 7
 
     # Loop
     while(not enforcado and not acerto):
@@ -19,13 +19,14 @@ def jogar():
             preencher_letra(palpite, palavra_secreta, letras_acertadas)
         else:
             erro += 1
+            desenhar_forca(erro)
 
         enforcado = erro == tentativa
         acerto = "_" not in letras_acertadas
 
         apresentar_resultado(palavra_secreta, enforcado, acerto)
 
-    print('Fim do jogo!')
+    print('\nFim do jogo!')
 
 # Funções
 def apresentar_abertura():
@@ -64,9 +65,95 @@ def preencher_letra(palpite, palavra_secreta, letras_acertadas):
 
 def apresentar_resultado(palavra_secreta, enforcado, acerto):
     if enforcado:
-        print('Você perdeu! A palavra era {}.'.format(palavra_secreta))
+        imprimir_perdedor(palavra_secreta)
+        #print('Você perdeu! A palavra era {}.'.format(palavra_secreta))
     if acerto:
-        print('Você ganhou!')
+        imprimir_vencedor()
+        #print('Você ganhou!')
+
+def imprimir_perdedor(palavra_secreta):
+    print("O jogador foi enforcado!")
+    print("A palavra era {}.".format(palavra_secreta))
+    print("    _______________         ")
+    print("   /               \\       ")
+    print("  /                 \\      ")
+    print("/                   \\/\\  ")
+    print("\\|   XXXX     XXXX   | /   ")
+    print(" |   XXXX     XXXX   |/     ")
+    print(" |   XXX       XXX   |      ")
+    print(" |                   |      ")
+    print(" \\__      XXX      __/     ")
+    print("   |\\     XXX     /|       ")
+    print("   | |           | |        ")
+    print("   | I I I I I I I |        ")
+    print("   |  I I I I I I  |        ")
+    print("   \\_             _/       ")
+    print("     \\_         _/         ")
+    print("       \\_______/           ")
+
+def imprimir_vencedor():
+    print("Parabéns, você ganhou!")
+    print("       ___________      ")
+    print("      '._==_==_=_.'     ")
+    print("      .-\\:      /-.    ")
+    print("     | (|:.     |) |    ")
+    print("      '-|:.     |-'     ")
+    print("        \\::.    /      ")
+    print("         '::. .'        ")
+    print("           ) (          ")
+    print("         _.' '._        ")
+    print("        '-------'       ")
+
+def desenhar_forca(erros):
+    print("  _______     ")
+    print(" |/      |    ")
+
+    if(erros == 1):
+        print(" |      (_)   ")
+        print(" |            ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 2):
+        print(" |      (_)   ")
+        print(" |       |    ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 3):
+        print(" |      (_)   ")
+        print(" |      \\|    ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 4):
+        print(" |      (_)   ")
+        print(" |      \\|/   ")
+        print(" |            ")
+        print(" |            ")
+
+    if(erros == 5):
+        print(" |      (_)   ")
+        print(" |      \\|/   ")
+        print(" |       |    ")
+        print(" |            ")
+
+    if(erros == 6):
+        print(" |      (_)   ")
+        print(" |      \\|/   ")
+        print(" |       |    ")
+        print(" |      /     ")
+
+    if (erros == 7):
+        print(" |      (_)   ")
+        print(" |      \\|/   ")
+        print(" |       |    ")
+        print(" |      / \\   ")
+
+    print(" |            ")
+    print("_|___         ")
+    print()
+
 
 if __name__ == '__main__':
     jogar()
